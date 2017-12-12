@@ -21,5 +21,8 @@ namespace WebApi.Repositories
 
         private static ItemsRepository itemsRepository = new ItemsRepository();
         public static ItemsRepository Items { get { return itemsRepository; } }
+
+        private static PetsRepository petsRepository = new PetsRepository();
+        public static PetsRepository Pets { get { return petsRepository; } }
     }
 }
