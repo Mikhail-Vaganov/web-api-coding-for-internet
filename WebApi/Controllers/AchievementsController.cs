@@ -17,7 +17,7 @@ namespace WebApi.Controllers
         
         [HttpGet]
         [Route("")]
-        public IEnumerable<Achievements> GetAllAchievements(int characterId)
+        public IEnumerable<Achievements> GetAllAchievements( int characterId)
         {
             return DB.Achievements.FindAllByCharacterId(characterId);
         }
@@ -38,19 +38,20 @@ namespace WebApi.Controllers
 
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [Route("{achievementId:int}")]
         public Achievements GetAchievement(int achievementId)
         {
             var achievement = DB.Achievements.Find(achievementId);
             return achievement;
-        }
+        }*/
 
         [HttpPut]
         [Route("{achievementId:int}")]
-        public Achievements UpdateAchievements(int achievementId, [FromBody]Achievements achievement)
+        public Achievements UpdateAchievements(int achievementId, int characterId, [FromBody]Achievements achievement)
         {
             achievement.Id = achievementId;
+            achievement.CharacterId = characterId;
             DB.Achievements.Update(achievement);
 
             var updateAchievement = DB.Achievements.Find(achievementId);
