@@ -17,26 +17,31 @@ namespace WebApi.Controllers
     {
         [HttpGet]
         [Route("")]
-        public IEnumerable<Subscription> GetAllSubscription()
+        public IEnumerable<Subscription> GetAllSubscription(int accountId)
         {
-            return DB.Subscription.FindAll();
+
+            return DB.Subscription.FindAllByAccountId(accountId);
         }
 
         [HttpPost]
         [Route("")]
         public Subscription AddSubscription(int accountId,[FromBody]Subscription subscription)
         {
+
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
             subscription.AccountId = accountId;
-           
             var entity = DB.Subscription.Add(subscription);
             return entity;
         }
 
         [HttpPut]
         [Route("{subscriptionId:int}")]
-        public Subscription UpdateSubscription(int subscriptionId, [FromBody]Subscription subscription)
+        public Subscription UpdateSubscription(int subscriptionId, int accountId, [FromBody]Subscription subscription)
         {
             subscription.Id = subscriptionId;
+            subscription.AccountId = accountId;
             DB.Subscription.Update(subscription);
 
             var updateSubscription = DB.Subscription.Find(subscriptionId);
