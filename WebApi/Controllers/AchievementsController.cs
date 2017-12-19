@@ -38,13 +38,13 @@ namespace WebApi.Controllers
 
         }
 
-        /*[HttpGet]
+        [HttpGet]
         [Route("{achievementId:int}")]
         public Achievements GetAchievement(int achievementId)
         {
             var achievement = DB.Achievements.Find(achievementId);
             return achievement;
-        }*/
+        }
 
         [HttpPut]
         [Route("{achievementId:int}")]
